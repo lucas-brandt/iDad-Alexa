@@ -4,8 +4,8 @@ const https = require('https');
 var Alexa = require("alexa-sdk");
 var dadCheers = ["Touchdown!", "Nice job champ.", "Good work sport.", "Homerun!", "Good job, they don't make them like they used to."];
 
-function getDadJoke(callback) {
-  https.get("https://icanhazdadjoke.com/slack", (resp) => {
+function getApiResponse(query, callback) {
+  https.get(query, (resp) => {
     let jokeResp = '';
 
     // A chunk of data has been recieved.
@@ -53,7 +53,7 @@ var handlers = {
     this.emit(':responseReady');
   },
   "JokeIntent": function () {
-    getDadJoke((response) => {
+    getApiResponse("https://icanhazdadjoke.com/slack", (response) => {
       this.response.speak(response); 
       this.emit(':responseReady');
     });
